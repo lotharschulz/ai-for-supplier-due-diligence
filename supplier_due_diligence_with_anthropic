@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 216,
+   "execution_count": 231,
    "id": "bb514fe3-60ac-451e-8ad6-bf779929c7be",
    "metadata": {},
    "outputs": [
@@ -55,7 +55,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 217,
+   "execution_count": 232,
    "id": "1122ca7d-3c37-4de1-a6bc-c5aac7d3fd36",
    "metadata": {},
    "outputs": [
@@ -93,7 +93,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 218,
+   "execution_count": 233,
    "id": "a13064ae-885b-4953-a92e-10cbbd08e74e",
    "metadata": {},
    "outputs": [],
@@ -106,7 +106,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 219,
+   "execution_count": 234,
    "id": "302166b7-c5c7-47e2-9146-cf68dadf5d1a",
    "metadata": {},
    "outputs": [
@@ -118,6 +118,7 @@
       "\n",
       "Below is a list of questions and resources.\n",
       "Please answer the questions based on the resources provided:\n",
+      "\n",
       "\n",
       "Questions:\n",
       "Is the supplier ISO 27001 certified?\n",
@@ -137,7 +138,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 220,
+   "execution_count": 235,
    "id": "a6be3079-5880-4b45-a7e4-de4cb2f82ce1",
    "metadata": {},
    "outputs": [],
@@ -158,7 +159,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 221,
+   "execution_count": 236,
    "id": "a6bcdd18-6960-4c22-a262-85c3c45b5d3e",
    "metadata": {},
    "outputs": [
@@ -180,18 +181,24 @@
       "Requirement already satisfied: h11<0.15,>=0.13 in ./.venv/lib/python3.12/site-packages (from httpcore==1.*->httpx<1,>=0.23.0->anthropic) (0.14.0)\n",
       "Requirement already satisfied: annotated-types>=0.6.0 in ./.venv/lib/python3.12/site-packages (from pydantic<3,>=1.9.0->anthropic) (0.7.0)\n",
       "Requirement already satisfied: pydantic-core==2.27.2 in ./.venv/lib/python3.12/site-packages (from pydantic<3,>=1.9.0->anthropic) (2.27.2)\n",
-      "Requirement already satisfied: python-dotenv in ./.venv/lib/python3.12/site-packages (1.0.1)\n"
+      "Requirement already satisfied: python-dotenv in ./.venv/lib/python3.12/site-packages (1.0.1)\n",
+      "Requirement already satisfied: pyexcel-ods3 in ./.venv/lib/python3.12/site-packages (0.6.1)\n",
+      "Requirement already satisfied: pyexcel-io>=0.6.2 in ./.venv/lib/python3.12/site-packages (from pyexcel-ods3) (0.6.7)\n",
+      "Requirement already satisfied: lxml in ./.venv/lib/python3.12/site-packages (from pyexcel-ods3) (5.3.0)\n",
+      "Requirement already satisfied: pyexcel-ezodf>=0.3.3 in ./.venv/lib/python3.12/site-packages (from pyexcel-ods3) (0.3.4)\n",
+      "Requirement already satisfied: lml>=0.0.4 in ./.venv/lib/python3.12/site-packages (from pyexcel-io>=0.6.2->pyexcel-ods3) (0.1.0)\n"
      ]
     }
    ],
    "source": [
     "!pip install anthropic\n",
-    "!pip install python-dotenv"
+    "!pip install python-dotenv\n",
+    "!pip install pyexcel-ods3"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 222,
+   "execution_count": 237,
    "id": "6b219eb1-e5ba-4b75-898f-cdddf6fbe6cd",
    "metadata": {},
    "outputs": [],
@@ -207,7 +214,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 223,
+   "execution_count": 238,
    "id": "3316db2f-5975-4fd6-8c69-a81d185e5a67",
    "metadata": {},
    "outputs": [],
@@ -234,7 +241,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 229,
+   "execution_count": 239,
    "id": "fbe9d72c-e509-48a4-ae8f-0a5480a63ee5",
    "metadata": {},
    "outputs": [
@@ -242,49 +249,33 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Collecting pyexcel-ods3\n",
-      "  Downloading pyexcel_ods3-0.6.1-py3-none-any.whl.metadata (16 kB)\n",
-      "Requirement already satisfied: pyexcel-io>=0.6.2 in ./.venv/lib/python3.12/site-packages (from pyexcel-ods3) (0.6.7)\n",
-      "Collecting lxml (from pyexcel-ods3)\n",
-      "  Downloading lxml-5.3.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.8 kB)\n",
-      "Collecting pyexcel-ezodf>=0.3.3 (from pyexcel-ods3)\n",
-      "  Downloading pyexcel_ezodf-0.3.4-py2.py3-none-any.whl.metadata (6.9 kB)\n",
-      "Requirement already satisfied: lml>=0.0.4 in ./.venv/lib/python3.12/site-packages (from pyexcel-io>=0.6.2->pyexcel-ods3) (0.1.0)\n",
-      "Downloading pyexcel_ods3-0.6.1-py3-none-any.whl (9.8 kB)\n",
-      "Downloading pyexcel_ezodf-0.3.4-py2.py3-none-any.whl (53 kB)\n",
-      "\u001b[2K   \u001b[38;2;114;156;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m53.9/53.9 kB\u001b[0m \u001b[31m1.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
-      "\u001b[?25hDownloading lxml-5.3.0-cp312-cp312-manylinux_2_28_x86_64.whl (4.9 MB)\n",
-      "\u001b[2K   \u001b[38;2;114;156;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m4.9/4.9 MB\u001b[0m \u001b[31m6.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m[36m0:00:01\u001b[0m[36m0:00:01\u001b[0m:01\u001b[0m\n",
-      "Installing collected packages: lxml, pyexcel-ezodf, pyexcel-ods3\n",
-      "Successfully installed lxml-5.3.0 pyexcel-ezodf-0.3.4 pyexcel-ods3-0.6.1\n",
       "---------------/Claude's answers ----------------:\n",
       " Based on the provided resources:\n",
       "\n",
-      "ISO 27001: Yes, Sentry is ISO 27001:2013 certified.\n",
+      "ISO 27001: Yes, Sentry is ISO 27001 certified.\n",
       "\n",
       "SOC2: Yes, Sentry maintains SOC 2 Type II certification.\n",
       "\n",
       "Additional notes:\n",
-      "- Sentry's certifications are verified annually\n",
-      "- Their security compliance program includes both ISO 27001 and SOC 2 Type II\n",
-      "- The certifications cover their error monitoring and performance monitoring services\n",
-      "- Sentry maintains a comprehensive security program that includes these certifications as part of their commitment to data security and privacy\n",
+      "- Sentry undergoes regular third-party audits to maintain these certifications\n",
+      "- Their security certifications are verified annually\n",
+      "- They maintain compliance with multiple international standards and frameworks\n",
+      "- Certifications cover their application monitoring and error tracking services\n",
       "\n",
       "URL resources:\n",
-      "- Security overview: https://sentry.io/security/\n",
-      "- Detailed security documentation: https://develop.sentry.dev/security/\n",
-      "- Request security reports: https://sentry.io/security-report/\n",
+      "- Security certifications overview: https://sentry.io/security/\n",
+      "- Detailed compliance information: https://sentry.io/trust/\n",
+      "- You can request their security documentation and certificates by contacting security@sentry.io\n",
       "---------------/end of Claude's answers ----------------\n",
       "\n",
       "\n",
       "\n",
       "Claude's answers saved to: claude_answers.txt\n",
-      "Results saved to: QandA.tsv, QandA.xlsx, QandA.ods\n"
+      "Questions and answers saved to: QandA.tsv, QandA.xlsx, QandA.ods\n"
      ]
     }
    ],
    "source": [
-    "!pip install pyexcel-ods3\n",
     "import pyexcel\n",
     "\n",
     "res = None\n",
