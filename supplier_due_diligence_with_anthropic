@@ -77,16 +77,16 @@
    ],
    "source": [
     "# Load supplier questions\n",
-    "questions_file = './supplier_questions.tsv'  # Change to your file path\n",
+    "questions_file = './supplier_questions.tsv'\n",
     "questions_df = load_file(questions_file)\n",
     "print(f\"Questions:\\n{questions_df.head()}\")\n",
     "\n",
     "# Load context resources\n",
-    "context_file = './context.tsv'  # Change to your file path\n",
+    "context_file = './context.tsv'\n",
     "context_df = load_file(context_file)\n",
     "print(f\"Context:\\n{context_df.head()}\")\n",
     "\n",
-    "# Concatenate questions and resources\n",
+    "# Concatenate questions and context resources\n",
     "concatenated_questions = \"\\n\".join(str(question) for question in questions_df['Question'])\n",
     "concatenated_resources = \"\\n\".join(str(res) for res in context_df['Resources'])"
    ]
@@ -131,7 +131,7 @@
     }
    ],
    "source": [
-    "prompt = f\"{base_prompt}\\nQuestions:\\n{concatenated_questions}\\n\\nResources:\\n{concatenated_resources}\"\n",
+    "prompt = f\"{base_prompt}\\n\\nQuestions:\\n{concatenated_questions}\\n\\nResources:\\n{concatenated_resources}\"\n",
     "print(f\"prompt:\\n{prompt}\")"
    ]
   },
@@ -234,7 +234,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 227,
+   "execution_count": 229,
    "id": "fbe9d72c-e509-48a4-ae8f-0a5480a63ee5",
    "metadata": {},
    "outputs": [
@@ -242,6 +242,21 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
+      "Collecting pyexcel-ods3\n",
+      "  Downloading pyexcel_ods3-0.6.1-py3-none-any.whl.metadata (16 kB)\n",
+      "Requirement already satisfied: pyexcel-io>=0.6.2 in ./.venv/lib/python3.12/site-packages (from pyexcel-ods3) (0.6.7)\n",
+      "Collecting lxml (from pyexcel-ods3)\n",
+      "  Downloading lxml-5.3.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.8 kB)\n",
+      "Collecting pyexcel-ezodf>=0.3.3 (from pyexcel-ods3)\n",
+      "  Downloading pyexcel_ezodf-0.3.4-py2.py3-none-any.whl.metadata (6.9 kB)\n",
+      "Requirement already satisfied: lml>=0.0.4 in ./.venv/lib/python3.12/site-packages (from pyexcel-io>=0.6.2->pyexcel-ods3) (0.1.0)\n",
+      "Downloading pyexcel_ods3-0.6.1-py3-none-any.whl (9.8 kB)\n",
+      "Downloading pyexcel_ezodf-0.3.4-py2.py3-none-any.whl (53 kB)\n",
+      "\u001b[2K   \u001b[38;2;114;156;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m53.9/53.9 kB\u001b[0m \u001b[31m1.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+      "\u001b[?25hDownloading lxml-5.3.0-cp312-cp312-manylinux_2_28_x86_64.whl (4.9 MB)\n",
+      "\u001b[2K   \u001b[38;2;114;156;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m4.9/4.9 MB\u001b[0m \u001b[31m6.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m[36m0:00:01\u001b[0m[36m0:00:01\u001b[0m:01\u001b[0m\n",
+      "Installing collected packages: lxml, pyexcel-ezodf, pyexcel-ods3\n",
+      "Successfully installed lxml-5.3.0 pyexcel-ezodf-0.3.4 pyexcel-ods3-0.6.1\n",
       "---------------/Claude's answers ----------------:\n",
       " Based on the provided resources:\n",
       "\n",
@@ -251,15 +266,14 @@
       "\n",
       "Additional notes:\n",
       "- Sentry's certifications are verified annually\n",
-      "- Their security program is built on ISO 27001 framework\n",
-      "- They maintain both SOC 2 Type I and Type II reports\n",
+      "- Their security compliance program includes both ISO 27001 and SOC 2 Type II\n",
       "- The certifications cover their error monitoring and performance monitoring services\n",
-      "- Their security practices include regular third-party audits and penetration testing\n",
+      "- Sentry maintains a comprehensive security program that includes these certifications as part of their commitment to data security and privacy\n",
       "\n",
       "URL resources:\n",
       "- Security overview: https://sentry.io/security/\n",
       "- Detailed security documentation: https://develop.sentry.dev/security/\n",
-      "- Trust portal (requires login): https://sentry.io/trust/\n",
+      "- Request security reports: https://sentry.io/security-report/\n",
       "---------------/end of Claude's answers ----------------\n",
       "\n",
       "\n",
@@ -270,6 +284,9 @@
     }
    ],
    "source": [
+    "!pip install pyexcel-ods3\n",
+    "import pyexcel\n",
+    "\n",
     "res = None\n",
     "try:\n",
     "    res = ask(prompt)\n",
@@ -299,12 +316,8 @@
     "    \n",
     "    # Parse responses\n",
     "    for line in response_lines:\n",
-    "        #print(f\"line: {str(line)}\")\n",
     "        if \":\" in line:\n",
-    "            #print(f\"line with ':' : {str(line)}\")\n",
     "            key, value = line.split(\":\", 1)\n",
-    "            #print(f\"key: {str(key.strip())}\")\n",
-    "            #print(f\"value: {str(value.strip())}\")\n",
     "            if key == add_notes or key == url_resources:\n",
     "                pass\n",
     "            elif value.strip() != \"\" and answer_cntr < len(questions_df['Question']):\n",
@@ -325,10 +338,14 @@
     "    # Save to TSV, Excel, and ODT\n",
     "    output_df.to_csv(output_tsv, sep='\\t', index=False)\n",
     "    output_df.to_excel(output_excel, index=False)\n",
-    "    output_df.to_csv(output_ods, sep='\\t', index=False)  # Use ODS-specific library if needed\n",
+    "    output_df.to_csv(output_ods, sep=',', index=False)  # use ODS-specific library if needed\n",
     "\n",
-    "    \n",
-    "    print(f\"Results saved to: {output_tsv}, {output_excel}, {output_ods}\")"
+    "    # Convert DataFrame to a list of lists for pyexcel compatibility\n",
+    "    data_to_save = [output_df.columns.tolist()] + output_df.values.tolist()\n",
+    "    # Save to an ODS file\n",
+    "    pyexcel.save_as(array=data_to_save, dest_file_name=output_ods)\n",
+    "\n",
+    "    print(f\"Questions and answers saved to: {output_tsv}, {output_excel}, {output_ods}\")"
    ]
   },
   {
