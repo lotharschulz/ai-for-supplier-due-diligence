@@ -22,7 +22,7 @@ pip3 install jupyter
 ## start the notebook server
 ```sh
 jupyter notebook
-```sh
+```
 
 ## start and run the notebook
 open the supplier_due_diligence_with_anthropic.ipynb via the web console
