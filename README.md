@@ -33,3 +33,7 @@ CTRL C
 
 ## stop virtual env
 deactivate
+
+## troubleshooting
+`rm -rf .venv` - in case there are issues with the virtual env,
+this helps including recreating the virtual env `python3 -m venv .venv`
