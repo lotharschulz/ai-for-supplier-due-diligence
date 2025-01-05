@@ -25,14 +25,16 @@ jupyter notebook
 ```
 
 ## start and run the notebook
-open the supplier_due_diligence_with_anthropic.ipynb via the web console
+open the [supplier_due_diligence_with_anthropic jupyter notebook](supplier_due_diligence_with_anthropic.ipynb) supplier_due_diligence_with_anthropic.ipynb via the web console
 run individual cells one by one or all cells in one go
 
 ## stop the notebook
-CTRL C
+_CTRL C_
 
 ## stop virtual env
+```sh
 deactivate
+```
 
 ## troubleshooting
 `rm -rf .venv` - in case there are issues with the virtual env,
