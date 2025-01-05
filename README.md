@@ -24,12 +24,12 @@ pip3 install jupyter
 jupyter notebook
 ```
 
-## start and run the notebook
-open the [supplier_due_diligence_with_anthropic jupyter notebook](supplier_due_diligence_with_anthropic.ipynb) supplier_due_diligence_with_anthropic.ipynb via the web console
-run individual cells one by one or all cells in one go
+## run the notebook
+open the [supplier_due_diligence_with_anthropic jupyter notebook](supplier_due_diligence_with_anthropic.ipynb) via the web console
+run individual cells one by one or all cells at once
 
 ## stop the notebook
-_CTRL C_
+_Ctrl C_
 
 ## stop virtual env
 ```sh
@@ -37,5 +37,6 @@ deactivate
 ```
 
 ## troubleshooting
-`rm -rf .venv` - in case there are issues with the virtual env,
-this helps including recreating the virtual env `python3 -m venv .venv`
+in case there are issues with the virtual env,
+deleting `rm -rf .venv` 
+and recreating the virtual env `python3 -m venv .venv` may help
