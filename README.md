@@ -14,9 +14,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-## install jupyter 
+## install jupyter and make sure pip3 is up to date
 ```sh
 pip3 install jupyter
+pip3 install --upgrade pip3
 ```
 
 ## start the notebook server
